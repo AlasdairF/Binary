@@ -1,5 +1,7 @@
 package bin
 
+import "math"
+
 func Decode16(b []byte) uint16 {
 	return uint16(b[0]) | uint16(b[1])<<8
 }
@@ -21,8 +23,7 @@ func Encode32(b []byte, v uint32) {
 }
 
 func Decode64(b []byte) uint64 {
-	return uint64(b[0]) | uint64(b[1])<<8 | uint64(b[2])<<16 | uint64(b[3])<<24 |
-		uint64(b[4])<<32 | uint64(b[5])<<40 | uint64(b[6])<<48 | uint64(b[7])<<56
+	return uint64(b[0]) | uint64(b[1])<<8 | uint64(b[2])<<16 | uint64(b[3])<<24 | uint64(b[4])<<32 | uint64(b[5])<<40 | uint64(b[6])<<48 | uint64(b[7])<<56
 }
 
 func Encode64(b []byte, v uint64) {
@@ -34,4 +35,20 @@ func Encode64(b []byte, v uint64) {
 	b[5] = byte(v >> 40)
 	b[6] = byte(v >> 48)
 	b[7] = byte(v >> 56)
+}
+
+func EncodeFloat32(b []byte, f float32) {
+	Encode32(b, math.Float32bits(f))
+}
+
+func DecodeFloat32(b []byte) float32 {
+	return math.Float32frombits(Decode32(b))
+}
+
+func EncodeFloat64(b []byte, f float64) {
+	Encode32(b, math.Float32bits(f))
+}
+
+func DecodeFloat64(b []byte) float64 {
+	return math.Float64frombits(Decode64(b))
 }
