@@ -46,7 +46,7 @@ func DecodeFloat32(b []byte) float32 {
 }
 
 func EncodeFloat64(b []byte, f float64) {
-	Encode32(b, math.Float32bits(f))
+	Encode32(b, math.Float64bits(f))
 }
 
 func DecodeFloat64(b []byte) float64 {
